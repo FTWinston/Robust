@@ -1,0 +1,940 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RobustModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Entities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityTypeID" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="DeletedOn" Type="datetimeoffset" Precision="7" />
+        </EntityType>
+        <EntityType Name="FieldValues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityID" Type="int" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="ValueNumber" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Bit">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Date">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Decimal">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="18" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_ForeignKey">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="IsChild" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_FreeText">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Int">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Text">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntityTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fields">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityTypeID" Type="int" Nullable="false" />
+          <Property Name="FieldTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="Mandatory" Type="bit" Nullable="false" />
+          <Property Name="MinNumber" Type="int" Nullable="false" />
+          <Property Name="MaxNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="FieldTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="ParentFieldTypeID" Type="int" />
+          <Property Name="DisplayFormat" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Robust.data.CurrentEntities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CurrentEntities">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EntityTypeID" />
+            <PropertyRef Name="CreatedOn" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityTypeID" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CurrentFieldValues">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="ValueNumber" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityID" Type="int" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="ValueNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Entities_EntityTypes">
+          <End Role="EntityTypes" Type="Self.EntityTypes" Multiplicity="1" />
+          <End Role="Entities" Type="Self.Entities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entities">
+              <PropertyRef Name="EntityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_EntityTypes">
+          <End Role="EntityTypes" Type="Self.EntityTypes" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="EntityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldTypes" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldTypes_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldTypes" Multiplicity="0..1" />
+          <End Role="FieldTypes1" Type="Self.FieldTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldTypes1">
+              <PropertyRef Name="ParentFieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Bit_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_Bit" Type="Self.FieldValues_Bit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Bit">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Decimal_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_Decimal" Type="Self.FieldValues_Decimal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Decimal">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Entities">
+          <End Role="Entities" Type="Self.Entities" Multiplicity="0..1" />
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues">
+              <PropertyRef Name="EntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_ForeignKey_Entities">
+          <End Role="Entities" Type="Self.Entities" Multiplicity="1" />
+          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_ForeignKey">
+              <PropertyRef Name="Value" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_ForeignKey_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_ForeignKey">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FreeText_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_FreeText" Type="Self.FieldValues_FreeText" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FreeText">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Text_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValues" Multiplicity="1" />
+          <End Role="FieldValues_Text" Type="Self.FieldValues_Text" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Text">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RobustModelStoreContainer">
+          <EntitySet Name="Entities" EntityType="Self.Entities" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues" EntityType="Self.FieldValues" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Bit" EntityType="Self.FieldValues_Bit" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Date" EntityType="Self.FieldValues_Date" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Decimal" EntityType="Self.FieldValues_Decimal" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_ForeignKey" EntityType="Self.FieldValues_ForeignKey" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_FreeText" EntityType="Self.FieldValues_FreeText" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Int" EntityType="Self.FieldValues_Int" Schema="data" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Text" EntityType="Self.FieldValues_Text" Schema="data" store:Type="Tables" />
+          <EntitySet Name="EntityTypes" EntityType="Self.EntityTypes" Schema="model" store:Type="Tables" />
+          <EntitySet Name="Fields" EntityType="Self.Fields" Schema="model" store:Type="Tables" />
+          <EntitySet Name="FieldTypes" EntityType="Self.FieldTypes" Schema="model" store:Type="Tables" />
+          <EntitySet Name="CurrentEntities" EntityType="Self.CurrentEntities" store:Type="Views" store:Schema="data">
+            <DefiningQuery>SELECT 
+    [CurrentEntities].[ID] AS [ID], 
+    [CurrentEntities].[EntityTypeID] AS [EntityTypeID], 
+    [CurrentEntities].[CreatedOn] AS [CreatedOn]
+    FROM [data].[CurrentEntities] AS [CurrentEntities]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="CurrentFieldValues" EntityType="Self.CurrentFieldValues" store:Type="Views" store:Schema="data">
+            <DefiningQuery>SELECT 
+    [CurrentFieldValues].[ID] AS [ID], 
+    [CurrentFieldValues].[EntityID] AS [EntityID], 
+    [CurrentFieldValues].[FieldID] AS [FieldID], 
+    [CurrentFieldValues].[ValueNumber] AS [ValueNumber]
+    FROM [data].[CurrentFieldValues] AS [CurrentFieldValues]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Entities_EntityTypes" Association="Self.FK_Entities_EntityTypes">
+            <End Role="EntityTypes" EntitySet="EntityTypes" />
+            <End Role="Entities" EntitySet="Entities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_EntityTypes" Association="Self.FK_Fields_EntityTypes">
+            <End Role="EntityTypes" EntitySet="EntityTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_FieldTypes" Association="Self.FK_Fields_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldTypes_FieldTypes" Association="Self.FK_FieldTypes_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="FieldTypes1" EntitySet="FieldTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Bit_FieldValues" Association="Self.FK_FieldValues_Bit_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Bit" EntitySet="FieldValues_Bit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_FieldValues" Association="Self.FK_FieldValues_Date_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Decimal_FieldValues" Association="Self.FK_FieldValues_Decimal_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Decimal" EntitySet="FieldValues_Decimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Entities" Association="Self.FK_FieldValues_Entities">
+            <End Role="Entities" EntitySet="Entities" />
+            <End Role="FieldValues" EntitySet="FieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Fields" Association="Self.FK_FieldValues_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues" EntitySet="FieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_ForeignKey_Entities" Association="Self.FK_FieldValues_ForeignKey_Entities">
+            <End Role="Entities" EntitySet="Entities" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_ForeignKey_FieldValues" Association="Self.FK_FieldValues_ForeignKey_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FreeText_FieldValues" Association="Self.FK_FieldValues_FreeText_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_FreeText" EntitySet="FieldValues_FreeText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_FieldValues" Association="Self.FK_FieldValues_Int_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Text_FieldValues" Association="Self.FK_FieldValues_Text_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Text" EntitySet="FieldValues_Text" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RobustModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="DeletedOn" Type="DateTimeOffset" Precision="7" />
+          <NavigationProperty Name="EntityType" Relationship="Self.FK_Entities_EntityTypes" FromRole="Entities" ToRole="EntityTypes" />
+          <NavigationProperty Name="FieldValues" Relationship="Self.FK_FieldValues_Entities" FromRole="Entities" ToRole="FieldValues" />
+          <NavigationProperty Name="FieldValues_ForeignKey" Relationship="Self.FK_FieldValues_ForeignKey_Entities" FromRole="Entities" ToRole="FieldValues_ForeignKey" />
+        </EntityType>
+        <EntityType Name="FieldValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityID" Type="Int32" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="ValueNumber" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Entity" Relationship="Self.FK_FieldValues_Entities" FromRole="FieldValues" ToRole="Entities" />
+          <NavigationProperty Name="BitValue" Relationship="Self.FK_FieldValues_Bit_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Bit" />
+          <NavigationProperty Name="DateValue" Relationship="Self.FK_FieldValues_Date_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Date" />
+          <NavigationProperty Name="DecimalValue" Relationship="Self.FK_FieldValues_Decimal_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Decimal" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_FieldValues_Fields" FromRole="FieldValues" ToRole="Fields" />
+          <NavigationProperty Name="ForeignKeyValue" Relationship="Self.FK_FieldValues_ForeignKey_FieldValues" FromRole="FieldValues" ToRole="FieldValues_ForeignKey" />
+          <NavigationProperty Name="FreeTextValue" Relationship="Self.FK_FieldValues_FreeText_FieldValues" FromRole="FieldValues" ToRole="FieldValues_FreeText" />
+          <NavigationProperty Name="IntValue" Relationship="Self.FK_FieldValues_Int_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Int" />
+          <NavigationProperty Name="TextValue" Relationship="Self.FK_FieldValues_Text_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Text" />
+        </EntityType>
+        <EntityType Name="FieldValues_Bit">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Bit_FieldValues" FromRole="FieldValues_Bit" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_Date">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Date_FieldValues" FromRole="FieldValues_Date" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_Decimal">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Decimal_FieldValues" FromRole="FieldValues_Decimal" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_ForeignKey">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="IsChild" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ValueEntity" Relationship="Self.FK_FieldValues_ForeignKey_Entities" FromRole="FieldValues_ForeignKey" ToRole="Entities" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_ForeignKey_FieldValues" FromRole="FieldValues_ForeignKey" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_FreeText">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_FreeText_FieldValues" FromRole="FieldValues_FreeText" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_Int">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Int_FieldValues" FromRole="FieldValues_Int" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="FieldValues_Text">
+          <Key>
+            <PropertyRef Name="FieldValueID" />
+          </Key>
+          <Property Name="FieldValueID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Text_FieldValues" FromRole="FieldValues_Text" ToRole="FieldValues" />
+        </EntityType>
+        <EntityType Name="EntityType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Entities" Relationship="Self.FK_Entities_EntityTypes" FromRole="EntityTypes" ToRole="Entities" />
+          <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_EntityTypes" FromRole="EntityTypes" ToRole="Fields" />
+        </EntityType>
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="FieldTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Mandatory" Type="Boolean" Nullable="false" />
+          <Property Name="MinNumber" Type="Int32" Nullable="false" />
+          <Property Name="MaxNumber" Type="Int32" />
+          <NavigationProperty Name="FieldValues" Relationship="Self.FK_FieldValues_Fields" FromRole="Fields" ToRole="FieldValues" />
+          <NavigationProperty Name="EntityType" Relationship="Self.FK_Fields_EntityTypes" FromRole="Fields" ToRole="EntityTypes" />
+          <NavigationProperty Name="FieldType" Relationship="Self.FK_Fields_FieldTypes" FromRole="Fields" ToRole="FieldTypes" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="ParentFieldTypeID" Type="Int32" />
+          <Property Name="DisplayFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_FieldTypes" FromRole="FieldTypes" ToRole="Fields" />
+          <NavigationProperty Name="ChildFieldTypes" Relationship="Self.FK_FieldTypes_FieldTypes" FromRole="FieldTypes" ToRole="FieldTypes1" />
+          <NavigationProperty Name="ParentFieldType" Relationship="Self.FK_FieldTypes_FieldTypes" FromRole="FieldTypes1" ToRole="FieldTypes" />
+        </EntityType>
+        <EntityType Name="CurrentEntity">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EntityTypeID" />
+            <PropertyRef Name="CreatedOn" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityTypeID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTimeOffset" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="CurrentFieldValue">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FieldID" />
+            <PropertyRef Name="ValueNumber" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityID" Type="Int32" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="ValueNumber" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Entities_EntityTypes">
+          <End Role="EntityTypes" Type="Self.EntityType" Multiplicity="1" />
+          <End Role="Entities" Type="Self.Entity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Entities">
+              <PropertyRef Name="EntityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Entities">
+          <End Role="Entities" Type="Self.Entity" Multiplicity="0..1" />
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues">
+              <PropertyRef Name="EntityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_ForeignKey_Entities">
+          <End Role="Entities" Type="Self.Entity" Multiplicity="1" />
+          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_ForeignKey">
+              <PropertyRef Name="Value" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Bit_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_Bit" Type="Self.FieldValues_Bit" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Bit">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Decimal_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_Decimal" Type="Self.FieldValues_Decimal" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Decimal">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Fields">
+          <End Role="Fields" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_ForeignKey_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_ForeignKey">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FreeText_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_FreeText" Type="Self.FieldValues_FreeText" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FreeText">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Text_FieldValues">
+          <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
+          <End Role="FieldValues_Text" Type="Self.FieldValues_Text" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FieldValues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Text">
+              <PropertyRef Name="FieldValueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_EntityTypes">
+          <End Role="EntityTypes" Type="Self.EntityType" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntityTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="EntityTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldType" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldTypes_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldType" Multiplicity="0..1" />
+          <End Role="FieldTypes1" Type="Self.FieldType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldTypes1">
+              <PropertyRef Name="ParentFieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RobustEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Entities" EntityType="Self.Entity" />
+          <EntitySet Name="FieldValues" EntityType="Self.FieldValue" />
+          <EntitySet Name="FieldValues_Bit" EntityType="Self.FieldValues_Bit" />
+          <EntitySet Name="FieldValues_Date" EntityType="Self.FieldValues_Date" />
+          <EntitySet Name="FieldValues_Decimal" EntityType="Self.FieldValues_Decimal" />
+          <EntitySet Name="FieldValues_ForeignKey" EntityType="Self.FieldValues_ForeignKey" />
+          <EntitySet Name="FieldValues_FreeText" EntityType="Self.FieldValues_FreeText" />
+          <EntitySet Name="FieldValues_Int" EntityType="Self.FieldValues_Int" />
+          <EntitySet Name="FieldValues_Text" EntityType="Self.FieldValues_Text" />
+          <EntitySet Name="EntityTypes" EntityType="Self.EntityType" />
+          <EntitySet Name="Fields" EntityType="Self.Field" />
+          <EntitySet Name="FieldTypes" EntityType="Self.FieldType" />
+          <EntitySet Name="CurrentEntities" EntityType="Self.CurrentEntity" />
+          <EntitySet Name="CurrentFieldValues" EntityType="Self.CurrentFieldValue" />
+          <AssociationSet Name="FK_Entities_EntityTypes" Association="Self.FK_Entities_EntityTypes">
+            <End Role="EntityTypes" EntitySet="EntityTypes" />
+            <End Role="Entities" EntitySet="Entities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Entities" Association="Self.FK_FieldValues_Entities">
+            <End Role="Entities" EntitySet="Entities" />
+            <End Role="FieldValues" EntitySet="FieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_ForeignKey_Entities" Association="Self.FK_FieldValues_ForeignKey_Entities">
+            <End Role="Entities" EntitySet="Entities" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Bit_FieldValues" Association="Self.FK_FieldValues_Bit_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Bit" EntitySet="FieldValues_Bit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_FieldValues" Association="Self.FK_FieldValues_Date_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Decimal_FieldValues" Association="Self.FK_FieldValues_Decimal_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Decimal" EntitySet="FieldValues_Decimal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Fields" Association="Self.FK_FieldValues_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues" EntitySet="FieldValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_ForeignKey_FieldValues" Association="Self.FK_FieldValues_ForeignKey_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FreeText_FieldValues" Association="Self.FK_FieldValues_FreeText_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_FreeText" EntitySet="FieldValues_FreeText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_FieldValues" Association="Self.FK_FieldValues_Int_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Text_FieldValues" Association="Self.FK_FieldValues_Text_FieldValues">
+            <End Role="FieldValues" EntitySet="FieldValues" />
+            <End Role="FieldValues_Text" EntitySet="FieldValues_Text" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_EntityTypes" Association="Self.FK_Fields_EntityTypes">
+            <End Role="EntityTypes" EntitySet="EntityTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_FieldTypes" Association="Self.FK_Fields_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldTypes_FieldTypes" Association="Self.FK_FieldTypes_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="FieldTypes1" EntitySet="FieldTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RobustModelStoreContainer" CdmEntityContainer="RobustEntities">
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="RobustModel.Entity">
+              <MappingFragment StoreEntitySet="Entities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EntityTypeID" ColumnName="EntityTypeID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue">
+              <MappingFragment StoreEntitySet="FieldValues">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ValueNumber" ColumnName="ValueNumber" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Bit">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_Bit">
+              <MappingFragment StoreEntitySet="FieldValues_Bit">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Date">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_Date">
+              <MappingFragment StoreEntitySet="FieldValues_Date">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Decimal">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_Decimal">
+              <MappingFragment StoreEntitySet="FieldValues_Decimal">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_ForeignKey">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_ForeignKey">
+              <MappingFragment StoreEntitySet="FieldValues_ForeignKey">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="IsChild" ColumnName="IsChild" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_FreeText">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_FreeText">
+              <MappingFragment StoreEntitySet="FieldValues_FreeText">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Int">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_Int">
+              <MappingFragment StoreEntitySet="FieldValues_Int">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Text">
+            <EntityTypeMapping TypeName="RobustModel.FieldValues_Text">
+              <MappingFragment StoreEntitySet="FieldValues_Text">
+                <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntityTypes">
+            <EntityTypeMapping TypeName="RobustModel.EntityType">
+              <MappingFragment StoreEntitySet="EntityTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fields">
+            <EntityTypeMapping TypeName="RobustModel.Field">
+              <MappingFragment StoreEntitySet="Fields">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EntityTypeID" ColumnName="EntityTypeID" />
+                <ScalarProperty Name="FieldTypeID" ColumnName="FieldTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Mandatory" ColumnName="Mandatory" />
+                <ScalarProperty Name="MinNumber" ColumnName="MinNumber" />
+                <ScalarProperty Name="MaxNumber" ColumnName="MaxNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldTypes">
+            <EntityTypeMapping TypeName="RobustModel.FieldType">
+              <MappingFragment StoreEntitySet="FieldTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="ParentFieldTypeID" ColumnName="ParentFieldTypeID" />
+                <ScalarProperty Name="DisplayFormat" ColumnName="DisplayFormat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentEntities">
+            <EntityTypeMapping TypeName="RobustModel.CurrentEntity">
+              <MappingFragment StoreEntitySet="CurrentEntities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EntityTypeID" ColumnName="EntityTypeID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentFieldValues">
+            <EntityTypeMapping TypeName="RobustModel.CurrentFieldValue">
+              <MappingFragment StoreEntitySet="CurrentFieldValues">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EntityID" ColumnName="EntityID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ValueNumber" ColumnName="ValueNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

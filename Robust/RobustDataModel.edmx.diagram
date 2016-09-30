@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="89e8d45b5107499b8e3e03cd136f13c6" Name="Diagram1">
+        <EntityTypeShape EntityType="RobustModel.Entity" Width="1.5" PointX="5.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValue" Width="1.5" PointX="5.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_Bit" Width="1.5" PointX="8.875" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_Date" Width="1.625" PointX="8.875" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_Decimal" Width="1.75" PointX="8.875" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_ForeignKey" Width="1.5" PointX="8.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_FreeText" Width="1.5" PointX="4.625" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_Int" Width="1.5" PointX="8.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.FieldValues_Text" Width="1.5" PointX="6.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RobustModel.EntityType" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" FillColor="Green" />
+        <EntityTypeShape EntityType="RobustModel.Field" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" FillColor="Green" />
+        <EntityTypeShape EntityType="RobustModel.FieldType" Width="1.5" PointX="0.5" PointY="4.375" IsExpanded="true" FillColor="Green" />
+        <EntityTypeShape EntityType="RobustModel.CurrentEntity" Width="1.5" PointX="11.625" PointY="1.25" IsExpanded="true" FillColor="Purple" />
+        <EntityTypeShape EntityType="RobustModel.CurrentFieldValue" Width="1.75" PointX="11.625" PointY="4.5" IsExpanded="true" FillColor="Purple" />
+        <AssociationConnector Association="RobustModel.FK_Entities_EntityTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Entities" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_ForeignKey_Entities" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Bit_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Date_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Decimal_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Fields" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_ForeignKey_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_FreeText_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Int_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldValues_Text_FieldValues" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_Fields_EntityTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_Fields_FieldTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="RobustModel.FK_FieldTypes_FieldTypes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
