@@ -12,10 +12,10 @@ namespace Robust
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_FreeText
+    public partial class FieldValue_Date
     {
         public int FieldValueID { get; set; }
-        public string Value { get; set; }
+        public System.DateTimeOffset Value { get; set; }
     
         public virtual FieldValue FieldValue { get; set; }
     }

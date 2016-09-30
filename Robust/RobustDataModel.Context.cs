@@ -27,13 +27,13 @@ namespace Robust
     
         public virtual DbSet<Entity> Entities { get; set; }
         public virtual DbSet<FieldValue> FieldValues { get; set; }
-        public virtual DbSet<FieldValues_Bit> FieldValues_Bit { get; set; }
-        public virtual DbSet<FieldValues_Date> FieldValues_Date { get; set; }
-        public virtual DbSet<FieldValues_Decimal> FieldValues_Decimal { get; set; }
-        public virtual DbSet<FieldValues_ForeignKey> FieldValues_ForeignKey { get; set; }
-        public virtual DbSet<FieldValues_FreeText> FieldValues_FreeText { get; set; }
-        public virtual DbSet<FieldValues_Int> FieldValues_Int { get; set; }
-        public virtual DbSet<FieldValues_Text> FieldValues_Text { get; set; }
+        public virtual DbSet<FieldValue_Bit> FieldValue_Bit { get; set; }
+        public virtual DbSet<FieldValue_Date> FieldValue_Date { get; set; }
+        public virtual DbSet<FieldValue_Decimal> FieldValue_Decimal { get; set; }
+        public virtual DbSet<FieldValue_ForeignKey> FieldValue_ForeignKey { get; set; }
+        public virtual DbSet<FieldValue_FreeText> FieldValue_FreeText { get; set; }
+        public virtual DbSet<FieldValue_Int> FieldValue_Int { get; set; }
+        public virtual DbSet<FieldValue_Text> FieldValue_Text { get; set; }
         public virtual DbSet<EntityType> EntityTypes { get; set; }
         public virtual DbSet<Field> Fields { get; set; }
         public virtual DbSet<FieldType> FieldTypes { get; set; }

@@ -18,7 +18,7 @@ namespace Robust
         public Entity()
         {
             this.FieldValues = new HashSet<FieldValue>();
-            this.FieldValues_ForeignKey = new HashSet<FieldValues_ForeignKey>();
+            this.FieldValues_ForeignKey = new HashSet<FieldValue_ForeignKey>();
         }
     
         public int ID { get; set; }
@@ -30,6 +30,6 @@ namespace Robust
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FieldValue> FieldValues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FieldValues_ForeignKey> FieldValues_ForeignKey { get; set; }
+        public virtual ICollection<FieldValue_ForeignKey> FieldValues_ForeignKey { get; set; }
     }
 }

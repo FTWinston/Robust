@@ -12,10 +12,10 @@ namespace Robust
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_Bit
+    public partial class FieldValue_Text
     {
         public int FieldValueID { get; set; }
-        public bool Value { get; set; }
+        public string Value { get; set; }
     
         public virtual FieldValue FieldValue { get; set; }
     }

@@ -12,11 +12,13 @@ namespace Robust
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_Text
+    public partial class FieldValue_ForeignKey
     {
         public int FieldValueID { get; set; }
-        public string Value { get; set; }
+        public int Value { get; set; }
+        public bool IsChild { get; set; }
     
+        public virtual Entity ValueEntity { get; set; }
         public virtual FieldValue FieldValue { get; set; }
     }
 }

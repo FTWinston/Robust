@@ -22,13 +22,13 @@ namespace Robust
         public bool Deleted { get; set; }
     
         public virtual Entity Entity { get; set; }
-        public virtual FieldValues_Bit BitValue { get; set; }
-        public virtual FieldValues_Date DateValue { get; set; }
-        public virtual FieldValues_Decimal DecimalValue { get; set; }
+        public virtual FieldValue_Bit BitValue { get; set; }
+        public virtual FieldValue_Date DateValue { get; set; }
+        public virtual FieldValue_Decimal DecimalValue { get; set; }
         public virtual Field Field { get; set; }
-        public virtual FieldValues_ForeignKey ForeignKeyValue { get; set; }
-        public virtual FieldValues_FreeText FreeTextValue { get; set; }
-        public virtual FieldValues_Int IntValue { get; set; }
-        public virtual FieldValues_Text TextValue { get; set; }
+        public virtual FieldValue_ForeignKey ForeignKeyValue { get; set; }
+        public virtual FieldValue_FreeText FreeTextValue { get; set; }
+        public virtual FieldValue_Int IntValue { get; set; }
+        public virtual FieldValue_Text TextValue { get; set; }
     }
 }

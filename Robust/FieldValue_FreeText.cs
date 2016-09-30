@@ -12,10 +12,10 @@ namespace Robust
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_Decimal
+    public partial class FieldValue_FreeText
     {
         public int FieldValueID { get; set; }
-        public decimal Value { get; set; }
+        public string Value { get; set; }
     
         public virtual FieldValue FieldValue { get; set; }
     }

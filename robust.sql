@@ -101,7 +101,7 @@ CREATE TABLE [model].Fields
 	) 
 GO
 ALTER TABLE [model].Fields ADD CONSTRAINT
-	CK_Fields_Max CHECK (MaxNumber is null or MaxNumber > MinNumber)
+	CK_Fields_Max CHECK (MaxNumber is null or MaxNumber >= MinNumber)
 GO
 ALTER TABLE [model].Fields ADD CONSTRAINT
 	CK_Fields_Min CHECK (MinNumber >= 0)

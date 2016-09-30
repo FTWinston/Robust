@@ -110,8 +110,6 @@ warning 6002: The table/view 'Robust.data.CurrentEntities' does not have a prima
         <EntityType Name="CurrentEntities">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="EntityTypeID" />
-            <PropertyRef Name="CreatedOn" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntityTypeID" Type="int" Nullable="false" />
@@ -122,8 +120,6 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         <EntityType Name="CurrentFieldValues">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="FieldID" />
-            <PropertyRef Name="ValueNumber" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntityID" Type="int" />
@@ -420,7 +416,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <NavigationProperty Name="IntValue" Relationship="Self.FK_FieldValues_Int_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Int" />
           <NavigationProperty Name="TextValue" Relationship="Self.FK_FieldValues_Text_FieldValues" FromRole="FieldValues" ToRole="FieldValues_Text" />
         </EntityType>
-        <EntityType Name="FieldValues_Bit">
+        <EntityType Name="FieldValue_Bit">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -428,7 +424,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Value" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Bit_FieldValues" FromRole="FieldValues_Bit" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_Date">
+        <EntityType Name="FieldValue_Date">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -436,7 +432,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Value" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Date_FieldValues" FromRole="FieldValues_Date" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_Decimal">
+        <EntityType Name="FieldValue_Decimal">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -444,7 +440,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Value" Type="Decimal" Precision="18" Scale="6" Nullable="false" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Decimal_FieldValues" FromRole="FieldValues_Decimal" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_ForeignKey">
+        <EntityType Name="FieldValue_ForeignKey">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -454,7 +450,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <NavigationProperty Name="ValueEntity" Relationship="Self.FK_FieldValues_ForeignKey_Entities" FromRole="FieldValues_ForeignKey" ToRole="Entities" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_ForeignKey_FieldValues" FromRole="FieldValues_ForeignKey" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_FreeText">
+        <EntityType Name="FieldValue_FreeText">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -462,7 +458,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_FreeText_FieldValues" FromRole="FieldValues_FreeText" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_Int">
+        <EntityType Name="FieldValue_Int">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -470,7 +466,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Value" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FieldValue" Relationship="Self.FK_FieldValues_Int_FieldValues" FromRole="FieldValues_Int" ToRole="FieldValues" />
         </EntityType>
-        <EntityType Name="FieldValues_Text">
+        <EntityType Name="FieldValue_Text">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
@@ -519,8 +515,6 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         <EntityType Name="CurrentEntity">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="EntityTypeID" />
-            <PropertyRef Name="CreatedOn" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EntityTypeID" Type="Int32" Nullable="false" />
@@ -529,8 +523,6 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         <EntityType Name="CurrentFieldValue">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="FieldID" />
-            <PropertyRef Name="ValueNumber" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EntityID" Type="Int32" />
@@ -563,7 +555,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_ForeignKey_Entities">
           <End Role="Entities" Type="Self.Entity" Multiplicity="1" />
-          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="*" />
+          <End Role="FieldValues_ForeignKey" Type="RobustModel.FieldValue_ForeignKey" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Entities">
               <PropertyRef Name="ID" />
@@ -575,7 +567,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_Bit_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_Bit" Type="Self.FieldValues_Bit" Multiplicity="0..1" />
+          <End Role="FieldValues_Bit" Type="RobustModel.FieldValue_Bit" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -587,7 +579,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_Date_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="0..1" />
+          <End Role="FieldValues_Date" Type="RobustModel.FieldValue_Date" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -599,7 +591,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_Decimal_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_Decimal" Type="Self.FieldValues_Decimal" Multiplicity="0..1" />
+          <End Role="FieldValues_Decimal" Type="RobustModel.FieldValue_Decimal" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -623,7 +615,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_ForeignKey_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_ForeignKey" Type="Self.FieldValues_ForeignKey" Multiplicity="0..1" />
+          <End Role="FieldValues_ForeignKey" Type="RobustModel.FieldValue_ForeignKey" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -635,7 +627,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_FreeText_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_FreeText" Type="Self.FieldValues_FreeText" Multiplicity="0..1" />
+          <End Role="FieldValues_FreeText" Type="RobustModel.FieldValue_FreeText" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -647,7 +639,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_Int_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="0..1" />
+          <End Role="FieldValues_Int" Type="RobustModel.FieldValue_Int" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -659,7 +651,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         </Association>
         <Association Name="FK_FieldValues_Text_FieldValues">
           <End Role="FieldValues" Type="Self.FieldValue" Multiplicity="1" />
-          <End Role="FieldValues_Text" Type="Self.FieldValues_Text" Multiplicity="0..1" />
+          <End Role="FieldValues_Text" Type="RobustModel.FieldValue_Text" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="FieldValues">
               <PropertyRef Name="ID" />
@@ -708,13 +700,13 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         <EntityContainer Name="RobustEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <EntitySet Name="Entities" EntityType="Self.Entity" />
           <EntitySet Name="FieldValues" EntityType="Self.FieldValue" />
-          <EntitySet Name="FieldValues_Bit" EntityType="Self.FieldValues_Bit" />
-          <EntitySet Name="FieldValues_Date" EntityType="Self.FieldValues_Date" />
-          <EntitySet Name="FieldValues_Decimal" EntityType="Self.FieldValues_Decimal" />
-          <EntitySet Name="FieldValues_ForeignKey" EntityType="Self.FieldValues_ForeignKey" />
-          <EntitySet Name="FieldValues_FreeText" EntityType="Self.FieldValues_FreeText" />
-          <EntitySet Name="FieldValues_Int" EntityType="Self.FieldValues_Int" />
-          <EntitySet Name="FieldValues_Text" EntityType="Self.FieldValues_Text" />
+          <EntitySet Name="FieldValue_Bit" EntityType="RobustModel.FieldValue_Bit" />
+          <EntitySet Name="FieldValue_Date" EntityType="RobustModel.FieldValue_Date" />
+          <EntitySet Name="FieldValue_Decimal" EntityType="RobustModel.FieldValue_Decimal" />
+          <EntitySet Name="FieldValue_ForeignKey" EntityType="RobustModel.FieldValue_ForeignKey" />
+          <EntitySet Name="FieldValue_FreeText" EntityType="RobustModel.FieldValue_FreeText" />
+          <EntitySet Name="FieldValue_Int" EntityType="RobustModel.FieldValue_Int" />
+          <EntitySet Name="FieldValue_Text" EntityType="RobustModel.FieldValue_Text" />
           <EntitySet Name="EntityTypes" EntityType="Self.EntityType" />
           <EntitySet Name="Fields" EntityType="Self.Field" />
           <EntitySet Name="FieldTypes" EntityType="Self.FieldType" />
@@ -730,19 +722,19 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_ForeignKey_Entities" Association="Self.FK_FieldValues_ForeignKey_Entities">
             <End Role="Entities" EntitySet="Entities" />
-            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValue_ForeignKey" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Bit_FieldValues" Association="Self.FK_FieldValues_Bit_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_Bit" EntitySet="FieldValues_Bit" />
+            <End Role="FieldValues_Bit" EntitySet="FieldValue_Bit" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Date_FieldValues" Association="Self.FK_FieldValues_Date_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+            <End Role="FieldValues_Date" EntitySet="FieldValue_Date" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Decimal_FieldValues" Association="Self.FK_FieldValues_Decimal_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_Decimal" EntitySet="FieldValues_Decimal" />
+            <End Role="FieldValues_Decimal" EntitySet="FieldValue_Decimal" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Fields" Association="Self.FK_FieldValues_Fields">
             <End Role="Fields" EntitySet="Fields" />
@@ -750,19 +742,19 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_ForeignKey_FieldValues" Association="Self.FK_FieldValues_ForeignKey_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_ForeignKey" EntitySet="FieldValues_ForeignKey" />
+            <End Role="FieldValues_ForeignKey" EntitySet="FieldValue_ForeignKey" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_FreeText_FieldValues" Association="Self.FK_FieldValues_FreeText_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_FreeText" EntitySet="FieldValues_FreeText" />
+            <End Role="FieldValues_FreeText" EntitySet="FieldValue_FreeText" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Int_FieldValues" Association="Self.FK_FieldValues_Int_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+            <End Role="FieldValues_Int" EntitySet="FieldValue_Int" />
           </AssociationSet>
           <AssociationSet Name="FK_FieldValues_Text_FieldValues" Association="Self.FK_FieldValues_Text_FieldValues">
             <End Role="FieldValues" EntitySet="FieldValues" />
-            <End Role="FieldValues_Text" EntitySet="FieldValues_Text" />
+            <End Role="FieldValues_Text" EntitySet="FieldValue_Text" />
           </AssociationSet>
           <AssociationSet Name="FK_Fields_EntityTypes" Association="Self.FK_Fields_EntityTypes">
             <End Role="EntityTypes" EntitySet="EntityTypes" />
@@ -805,32 +797,32 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_Bit">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_Bit">
+          <EntitySetMapping Name="FieldValue_Bit">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_Bit">
               <MappingFragment StoreEntitySet="FieldValues_Bit">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_Date">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_Date">
+          <EntitySetMapping Name="FieldValue_Date">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_Date">
               <MappingFragment StoreEntitySet="FieldValues_Date">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_Decimal">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_Decimal">
+          <EntitySetMapping Name="FieldValue_Decimal">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_Decimal">
               <MappingFragment StoreEntitySet="FieldValues_Decimal">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_ForeignKey">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_ForeignKey">
+          <EntitySetMapping Name="FieldValue_ForeignKey">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_ForeignKey">
               <MappingFragment StoreEntitySet="FieldValues_ForeignKey">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
@@ -838,24 +830,24 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_FreeText">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_FreeText">
+          <EntitySetMapping Name="FieldValue_FreeText">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_FreeText">
               <MappingFragment StoreEntitySet="FieldValues_FreeText">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_Int">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_Int">
+          <EntitySetMapping Name="FieldValue_Int">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_Int">
               <MappingFragment StoreEntitySet="FieldValues_Int">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FieldValues_Text">
-            <EntityTypeMapping TypeName="RobustModel.FieldValues_Text">
+          <EntitySetMapping Name="FieldValue_Text">
+            <EntityTypeMapping TypeName="RobustModel.FieldValue_Text">
               <MappingFragment StoreEntitySet="FieldValues_Text">
                 <ScalarProperty Name="FieldValueID" ColumnName="FieldValueID" />
                 <ScalarProperty Name="Value" ColumnName="Value" />

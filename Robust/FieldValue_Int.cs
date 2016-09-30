@@ -12,7 +12,7 @@ namespace Robust
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_Int
+    public partial class FieldValue_Int
     {
         public int FieldValueID { get; set; }
         public int Value { get; set; }

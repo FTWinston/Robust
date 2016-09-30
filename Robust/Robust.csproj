@@ -74,25 +74,25 @@
     <Compile Include="FieldValue.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_Bit.cs">
+    <Compile Include="FieldValue_Bit.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_Date.cs">
+    <Compile Include="FieldValue_Date.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_Decimal.cs">
+    <Compile Include="FieldValue_Decimal.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_ForeignKey.cs">
+    <Compile Include="FieldValue_ForeignKey.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_FreeText.cs">
+    <Compile Include="FieldValue_FreeText.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_Int.cs">
+    <Compile Include="FieldValue_Int.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="FieldValues_Text.cs">
+    <Compile Include="FieldValue_Text.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MappingBuilder.cs" />
