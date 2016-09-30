@@ -8,22 +8,61 @@ namespace Robust
 {
     public static class ValueService
     {
+        public static FieldValue GetOrCreateValue(Entity entity, Field field, int valueNumber = 1)
+        {
+            var fieldValue = entity.FieldValues.FirstOrDefault(fv => fv.FieldID == field.ID && fv.ValueNumber == valueNumber);
+            if (fieldValue == null)
+            {
+                fieldValue = new FieldValue();
+                fieldValue.Entity = entity;
+                fieldValue.EntityID = entity.ID;
+                fieldValue.Field = field;
+                fieldValue.FieldID = field.ID;
+                fieldValue.ValueNumber = valueNumber;
+                entity.FieldValues.Add(fieldValue);
+            }
+            return fieldValue;
+        }
+
         private static Dictionary<int, Func<FieldValue, object>> getterCache = new Dictionary<int, Func<FieldValue, object>>();
+        private static Dictionary<int, Action<FieldValue, object>> setterCache = new Dictionary<int, Action<FieldValue, object>>();
 
         public static object GetValue(FieldValue fieldValue)
         {
             var field = fieldValue.Field;
-            if (getterCache.ContainsKey(field.FieldTypeID))
-                return getterCache[field.FieldTypeID](fieldValue);
-            
-            // get the "top-level" field type
-            var type = field.FieldType;
-            while (type.ParentFieldTypeID != null)
-                type = type.ParentFieldType;
+            Func<FieldValue, object> getter;
 
-            var getter = GetTypeGetter(type.ID);
-            getterCache.Add(field.FieldTypeID, getter);
+            if (!getterCache.TryGetValue(field.FieldTypeID, out getter))
+            {
+                // get the "top-level" field type
+                var type = field.FieldType;
+                while (type.ParentFieldTypeID != null)
+                    type = type.ParentFieldType;
+
+                getter = GetTypeGetter(type.ID);
+                getterCache.Add(field.FieldTypeID, getter);
+            }
+
             return getter(fieldValue);
+        }
+
+        public static void SetValue(FieldValue fieldValue, object value)
+        {
+            var field = fieldValue.Field;
+            Action<FieldValue, object> setter;
+
+            if (!setterCache.TryGetValue(field.FieldTypeID, out setter))
+            {
+                // get the "top-level" field type
+                var type = field.FieldType;
+                while (type.ParentFieldTypeID != null)
+                    type = type.ParentFieldType;
+
+                setter = GetTypeSetter(type.ID);
+                setterCache.Add(field.FieldTypeID, setter);
+            }
+            
+            setter(fieldValue, value);
         }
 
         private const int Boolean = 1, Date = 2, Decimal = 3, ForeignKey = 4, FreeText = 5, Integer = 6, Text = 7;
@@ -46,6 +85,29 @@ namespace Robust
                     return GetInteger;
                 case Text:
                     return GetText;
+                default:
+                    throw new NotImplementedException("You need to specify how to access field values stored as the type with ID " + rootFieldTypeID);
+            }
+        }
+
+        private static Action<FieldValue, object> GetTypeSetter(int rootFieldTypeID)
+        {
+            switch (rootFieldTypeID)
+            {
+                case Boolean:
+                    return SetBoolean;
+                case Date:
+                    return SetDate;
+                case Decimal:
+                    return SetDecimal;
+                case ForeignKey:
+                    return SetForeignKey;
+                case FreeText:
+                    return SetFreeText;
+                case Integer:
+                    return SetInteger;
+                case Text:
+                    return SetText;
                 default:
                     throw new NotImplementedException("You need to specify how to access field values stored as the type with ID " + rootFieldTypeID);
             }
@@ -105,6 +167,90 @@ namespace Robust
             if (actualValue == null)
                 return null;
             return actualValue.Value;
+        }
+
+        private static void SetBoolean(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.BitValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_Bit();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.BitValue = actualValue;
+            }
+            actualValue.Value = (bool)value;
+        }
+
+        private static void SetDate(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.DateValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_Date();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.DateValue = actualValue;
+            }
+            actualValue.Value = (DateTime)value;
+        }
+
+        private static void SetDecimal(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.DecimalValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_Decimal();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.DecimalValue = actualValue;
+            }
+            actualValue.Value = (decimal)value;
+        }
+
+        private static void SetForeignKey(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.ForeignKeyValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_ForeignKey();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.ForeignKeyValue = actualValue;
+            }
+            actualValue.Value = (value as Entity).ID;
+        }
+
+        private static void SetFreeText(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.FreeTextValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_FreeText();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.FreeTextValue = actualValue;
+            }
+            actualValue.Value = (string)value;
+        }
+
+        private static void SetInteger(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.IntValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_Int();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.IntValue = actualValue;
+            }
+            actualValue.Value = (int)value;
+        }
+
+        private static void SetText(FieldValue fieldValue, object value)
+        {
+            var actualValue = fieldValue.TextValue;
+            if (actualValue == null)
+            {
+                actualValue = new FieldValue_Text();
+                actualValue.FieldValue = fieldValue;
+                fieldValue.TextValue = actualValue;
+            }
+            actualValue.Value = (string)value;
         }
     }
 }

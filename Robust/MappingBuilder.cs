@@ -12,10 +12,20 @@ namespace Robust
         private Type TypeInfo;
         private EntityMapping<FixedType> Mapping;
 
-        public MappingBuilder()
+        public MappingBuilder(EntityType entityType)
         {
             TypeInfo = typeof(FixedType);
-            Mapping = new EntityMapping<FixedType>();
+            Mapping = new EntityMapping<FixedType>(entityType);
+        }
+
+        public MappingBuilder<FixedType> AddField(Field field, string propertyName)
+        {
+            return AddField(field.ID, propertyName);
+        }
+
+        public MappingBuilder<FixedType> AddField(Field field, string propertyName, Type propertyType)
+        {
+            return AddField(field.ID, propertyName, propertyType);
         }
 
         public MappingBuilder<FixedType> AddField(int fieldID, string propertyName)

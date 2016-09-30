@@ -10,11 +10,13 @@ namespace Robust
     public class EntityMapping<FixedType>
         where FixedType : new()
     {
-        internal EntityMapping()
+        internal EntityMapping(EntityType entityType)
         {
-             FieldMappings = new Dictionary<int, PropertyInfo>();
+            EntityType = entityType;
+            FieldMappings = new Dictionary<int, PropertyInfo>();
         }
 
+        internal EntityType EntityType { get; private set; }
         internal Dictionary<int, PropertyInfo> FieldMappings { get; private set; }
 
         public FixedType Load(int entityID)
@@ -31,16 +33,46 @@ namespace Robust
 
         public FixedType Load(Entity entity)
         {
-            FixedType destination = new FixedType();
+            FixedType data = new FixedType();
+            Load(entity, data);
+            return data;
+        }
 
+        public void Load(Entity entity, FixedType data)
+        {
             foreach (var fieldValue in entity.FieldValues.Where(v => FieldMappings.Keys.Contains(v.FieldID)))
             {
                 PropertyInfo property = FieldMappings[fieldValue.FieldID];
                 object value = ValueService.GetValue(fieldValue);
-                property.SetValue(destination, value);
+                property.SetValue(data, value);
             }
+        }
 
-            return destination;
+        public Entity SaveNew(FixedType data)
+        {
+            Entity entity = new Entity()
+            {
+                EntityTypeID = EntityType.ID,
+                EntityType = EntityType,
+            };
+
+            SaveExisting(data, entity);
+            return entity;
+        }
+
+        public void SaveExisting(FixedType data, Entity entity)
+        {
+            foreach (var kvp in FieldMappings)
+            {
+                int fieldID = kvp.Key;
+                Field field = entity.EntityType.Fields.First(f => f.ID == fieldID);
+                PropertyInfo property = kvp.Value;
+
+                FieldValue fieldValue = ValueService.GetOrCreateValue(entity, field);
+                
+                object value = property.GetValue(data);
+                ValueService.SetValue(fieldValue, value);
+            }
         }
     }
 }
