@@ -60,9 +60,11 @@
     <Compile Include="Entity.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityMapping.cs" />
     <Compile Include="EntityType.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityTypeService.cs" />
     <Compile Include="Field.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
@@ -93,6 +95,7 @@
     <Compile Include="FieldValues_Text.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MappingBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobustDataModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -109,6 +112,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RobustDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ValueService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="RobustDataModel.edmx">
