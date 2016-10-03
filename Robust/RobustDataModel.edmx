@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RobustModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RobustModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Entities">
           <Key>
             <PropertyRef Name="ID" />
@@ -29,28 +29,28 @@
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldValues_Date">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldValues_Decimal">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="18" Scale="6" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldValues_ForeignKey">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="int" Nullable="false" />
           <Property Name="IsChild" Type="bit" Nullable="false" />
         </EntityType>
@@ -58,21 +58,21 @@
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldValues_Int">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FieldValues_Text">
           <Key>
             <PropertyRef Name="FieldValueID" />
           </Key>
-          <Property Name="FieldValueID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FieldValueID" Type="int" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="EntityTypes">
@@ -110,6 +110,8 @@ warning 6002: The table/view 'Robust.data.CurrentEntities' does not have a prima
         <EntityType Name="CurrentEntities">
           <Key>
             <PropertyRef Name="ID" />
+            
+            
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntityTypeID" Type="int" Nullable="false" />
@@ -120,6 +122,8 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
         <EntityType Name="CurrentFieldValues">
           <Key>
             <PropertyRef Name="ID" />
+            
+            
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntityID" Type="int" />
@@ -379,8 +383,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
             <End Role="FieldValues_Text" EntitySet="FieldValues_Text" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RobustModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">

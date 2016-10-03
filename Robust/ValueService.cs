@@ -8,19 +8,23 @@ namespace Robust
 {
     public static class ValueService
     {
-        public static FieldValue GetOrCreateValue(Entity entity, Field field, int valueNumber = 1)
+        public static FieldValue GetValue(Entity entity, Field field, int valueNumber = 1)
         {
-            var fieldValue = entity.FieldValues.FirstOrDefault(fv => fv.FieldID == field.ID && fv.ValueNumber == valueNumber);
-            if (fieldValue == null)
+            return entity.FieldValues/*.OnlyCurrent()*/.FirstOrDefault(fv => fv.FieldID == field.ID && fv.ValueNumber == valueNumber);
+        }
+
+        public static FieldValue CreateValue(Entity entity, Field field, int valueNumber = 1)
+        {
+            var fieldValue = new FieldValue()
             {
-                fieldValue = new FieldValue();
-                fieldValue.Entity = entity;
-                fieldValue.EntityID = entity.ID;
-                fieldValue.Field = field;
-                fieldValue.FieldID = field.ID;
-                fieldValue.ValueNumber = valueNumber;
-                entity.FieldValues.Add(fieldValue);
-            }
+                Entity = entity,
+                EntityID = entity.ID,
+                Field = field,
+                FieldID = field.ID,
+                ValueNumber = valueNumber,
+                CreatedOn = DateTime.Now,
+            };
+            entity.FieldValues.Add(fieldValue);
             return fieldValue;
         }
 
@@ -175,7 +179,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_Bit();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
+                //actualValue.FieldValue = fieldValue;
                 fieldValue.BitValue = actualValue;
             }
             actualValue.Value = (bool)value;
@@ -187,10 +192,11 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_Date();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.DateValue = actualValue;
             }
-            actualValue.Value = (DateTime)value;
+            actualValue.Value = (DateTimeOffset)value;
         }
 
         private static void SetDecimal(FieldValue fieldValue, object value)
@@ -199,7 +205,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_Decimal();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.DecimalValue = actualValue;
             }
             actualValue.Value = (decimal)value;
@@ -211,7 +218,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_ForeignKey();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.ForeignKeyValue = actualValue;
             }
             actualValue.Value = (value as Entity).ID;
@@ -223,7 +231,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_FreeText();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.FreeTextValue = actualValue;
             }
             actualValue.Value = (string)value;
@@ -235,7 +244,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_Int();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.IntValue = actualValue;
             }
             actualValue.Value = (int)value;
@@ -247,7 +257,8 @@ namespace Robust
             if (actualValue == null)
             {
                 actualValue = new FieldValue_Text();
-                actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValue = fieldValue;
+                //actualValue.FieldValueID = fieldValue.ID;
                 fieldValue.TextValue = actualValue;
             }
             actualValue.Value = (string)value;

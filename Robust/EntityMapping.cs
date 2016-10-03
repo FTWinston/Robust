@@ -40,7 +40,7 @@ namespace Robust
 
         public void Load(Entity entity, FixedType data)
         {
-            foreach (var fieldValue in entity.FieldValues.Where(v => FieldMappings.Keys.Contains(v.FieldID)))
+            foreach (var fieldValue in entity.FieldValues./*OnlyCurrent().*/Where(v => FieldMappings.Keys.Contains(v.FieldID)))
             {
                 PropertyInfo property = FieldMappings[fieldValue.FieldID];
                 object value = ValueService.GetValue(fieldValue);
@@ -54,6 +54,7 @@ namespace Robust
             {
                 EntityTypeID = EntityType.ID,
                 EntityType = EntityType,
+                CreatedOn = DateTime.Now,
             };
 
             SaveExisting(data, entity);
@@ -68,7 +69,7 @@ namespace Robust
                 Field field = entity.EntityType.Fields.First(f => f.ID == fieldID);
                 PropertyInfo property = kvp.Value;
 
-                FieldValue fieldValue = ValueService.GetOrCreateValue(entity, field);
+                FieldValue fieldValue = ValueService.CreateValue(entity, field);
                 
                 object value = property.GetValue(data);
                 ValueService.SetValue(fieldValue, value);

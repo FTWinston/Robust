@@ -60,32 +60,29 @@ namespace RobustTests
                 type.Fields.Add(dob);
                 
                 entities.SaveChanges();
-            }
             
-            var mapping = new MappingBuilder<Contact>(type)
+                var mapping = new MappingBuilder<Contact>(type)
                 .AddField(name, "Name")
                 .AddField(email, "Email")
                 .AddField(dob, "DateOfBirth")
                 .GetResult();
 
-            Contact c = new Contact();
-            c.Name = "Test contact";
-            c.Email = "test@email.com";
-            c.DateOfBirth = DateTime.Now;
+                Contact c = new Contact();
+                c.Name = "Test contact";
+                c.Email = "test@email.com";
+                c.DateOfBirth = DateTime.Now;
 
-            using (var entities = new RobustEntities())
-            {
                 var saveEntity = mapping.SaveNew(c);
                 entities.Entities.Add(saveEntity);
                 entities.SaveChanges();
+
+                var entity = type.Entities.OnlyCurrent().FirstOrDefault();
+
+                Contact c2 = mapping.Load(entity);
+
+                Console.WriteLine("Before: {0} / {1} / {2}", c.Name, c.Email, c.DateOfBirth);
+                Console.WriteLine("After:  {0} / {1} / {2}", c2.Name, c2.Email, c2.DateOfBirth);
             }
-
-            var entity = type.Entities.FirstOrDefault();
-
-            Contact c2 = mapping.Load(entity);
-
-            Console.WriteLine("Before: {0} / {1} / {2}", c.Name, c.Email, c.DateOfBirth);
-            Console.WriteLine("After:  {0} / {1} / {2}", c2.Name, c2.Email, c2.DateOfBirth);
             Console.ReadKey();
         }
     }
@@ -94,6 +91,6 @@ namespace RobustTests
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTimeOffset DateOfBirth { get; set; }
     }
 }

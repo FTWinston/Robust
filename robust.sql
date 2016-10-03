@@ -295,7 +295,7 @@ GO
 
 CREATE TABLE [data].FieldValues_Bit
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value bit NOT NULL
 	) 
 GO
@@ -328,7 +328,7 @@ GO
 
 CREATE TABLE [data].FieldValues_Date
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value datetimeoffset(7) NOT NULL
 	) 
 GO
@@ -362,7 +362,7 @@ GO
 
 CREATE TABLE [data].FieldValues_Decimal
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value decimal(18,6) NOT NULL
 	) 
 GO
@@ -395,7 +395,7 @@ GO
 
 CREATE TABLE [data].FieldValues_FreeText
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value nvarchar(MAX) NOT NULL
 	) 
 GO
@@ -423,7 +423,7 @@ GO
 
 CREATE TABLE [data].FieldValues_Int
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value int NOT NULL
 	) 
 GO
@@ -456,7 +456,7 @@ GO
 
 CREATE TABLE [data].FieldValues_Text
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value nvarchar(255) NOT NULL
 	) 
 GO
@@ -491,7 +491,7 @@ ALTER TABLE [data].Entities SET (LOCK_ESCALATION = TABLE)
 GO
 CREATE TABLE [data].FieldValues_ForeignKey
 	(
-	FieldValueID int NOT NULL IDENTITY (1, 1),
+	FieldValueID int NOT NULL,
 	Value int NOT NULL,
 	IsChild bit NOT NULL
 	)
@@ -563,4 +563,3 @@ insert into model.FieldTypes select 'Foreign Key', 7, null, null
 insert into model.FieldTypes select 'Free Text', 6, null, null
 insert into model.FieldTypes select 'Integer', 2, null, null
 insert into model.FieldTypes select 'Text', 5, null, null
-
