@@ -10,13 +10,15 @@ namespace Robust
     public class EntityMapping<FixedType>
         where FixedType : new()
     {
-        internal EntityMapping(EntityType entityType)
+        internal EntityMapping(DataConnection connection, EntityType entityType)
         {
+            Connection = connection;
             EntityType = entityType;
             FieldMappings = new Dictionary<int, PropertyInfo>();
         }
 
-        internal EntityType EntityType { get; private set; }
+        public DataConnection Connection { get; private set; }
+        public EntityType EntityType { get; private set; }
         internal Dictionary<int, PropertyInfo> FieldMappings { get; private set; }
 
         public FixedType Load(int entityID)
@@ -40,7 +42,8 @@ namespace Robust
 
         public void Load(Entity entity, FixedType data)
         {
-            foreach (var fieldValue in entity.FieldValues./*OnlyCurrent().*/Where(v => FieldMappings.Keys.Contains(v.FieldID)))
+            foreach (var fieldValue in entity.FieldValues.OnlyCurrent(Connection)
+                .Where(v => FieldMappings.Keys.Contains(v.FieldID)))
             {
                 PropertyInfo property = FieldMappings[fieldValue.FieldID];
                 object value = ValueService.GetValue(fieldValue);

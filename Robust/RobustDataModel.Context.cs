@@ -13,7 +13,7 @@ namespace Robust
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RobustEntities : DbContext
+    internal partial class RobustEntities : DbContext
     {
         public RobustEntities()
             : base("name=RobustEntities")

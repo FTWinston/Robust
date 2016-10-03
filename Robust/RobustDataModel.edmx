@@ -700,7 +700,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RobustEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+        <EntityContainer Name="RobustEntities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
           <EntitySet Name="Entities" EntityType="Self.Entity" />
           <EntitySet Name="FieldValues" EntityType="Self.FieldValue" />
           <EntitySet Name="FieldValue_Bit" EntityType="RobustModel.FieldValue_Bit" />

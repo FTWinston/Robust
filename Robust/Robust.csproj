@@ -51,12 +51,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFieldType.cs" />
     <Compile Include="CurrentEntity.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CurrentFieldValue.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataConnection.cs" />
     <Compile Include="Entity.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>

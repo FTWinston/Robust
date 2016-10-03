@@ -8,9 +8,9 @@ namespace Robust
 {
     public static class ValueService
     {
-        public static FieldValue GetValue(Entity entity, Field field, int valueNumber = 1)
+        public static FieldValue GetValue(Entity entity, Field field, DataConnection connection, int valueNumber = 1)
         {
-            return entity.FieldValues/*.OnlyCurrent()*/.FirstOrDefault(fv => fv.FieldID == field.ID && fv.ValueNumber == valueNumber);
+            return entity.FieldValues.OnlyCurrent(connection).FirstOrDefault(fv => fv.FieldID == field.ID && fv.ValueNumber == valueNumber);
         }
 
         public static FieldValue CreateValue(Entity entity, Field field, int valueNumber = 1)

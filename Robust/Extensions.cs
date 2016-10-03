@@ -14,12 +14,9 @@ namespace Robust
             return entities.Where(e => !e.DeletedOn.HasValue);
         }
 
-        public static IEnumerable<FieldValue> OnlyCurrent(this IEnumerable<FieldValue> fieldValues)
+        public static IEnumerable<FieldValue> OnlyCurrent(this IEnumerable<FieldValue> fieldValues, DataConnection connection)
         {
-            using (var entities = new RobustEntities())
-            {
-                return fieldValues.Where(fv => entities.CurrentFieldValues.Any(cfv => cfv.ID == fv.ID));
-            }
+            return fieldValues.Where(fv => connection.Context.CurrentFieldValues.Any(cfv => cfv.ID == fv.ID));
         }
     }
 }

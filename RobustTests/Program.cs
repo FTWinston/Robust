@@ -14,13 +14,13 @@ namespace RobustTests
             EntityType type;
             Field name, email, dob;
 
-            using (var entities = new RobustEntities())
+            using (var connection = new DataConnection())
             {
                 type = new EntityType()
                 {
                     Name = "Contact",
                 };
-                entities.EntityTypes.Add(type);
+                connection.EntityTypes.Add(type);
                 
                 name = new Field()
                 {
@@ -28,7 +28,7 @@ namespace RobustTests
                     MinNumber = 1,
                     MaxNumber = 1,
                     EntityType = type,
-                    FieldType = entities.FieldTypes.First((ft) => ft.ID == 7),
+                    FieldType = connection.GetFieldType(BaseFieldType.Text),
                     SortOrder = 1,
                     Mandatory = true,
                 };
@@ -40,7 +40,7 @@ namespace RobustTests
                     MinNumber = 1,
                     MaxNumber = 1,
                     EntityType = type,
-                    FieldType = entities.FieldTypes.First((ft) => ft.ID == 7),
+                    FieldType = connection.GetFieldType(BaseFieldType.Text),
                     SortOrder = 2,
                     Mandatory = true,
                 };
@@ -53,15 +53,14 @@ namespace RobustTests
                     MinNumber = 1,
                     MaxNumber = 1,
                     EntityType = type,
-                    FieldType = entities.FieldTypes.First((ft) => ft.ID == 2),
+                    FieldType = connection.GetFieldType(BaseFieldType.Date),
                     SortOrder = 3,
                     Mandatory = true,
                 };
                 type.Fields.Add(dob);
-                
-                entities.SaveChanges();
-            
-                var mapping = new MappingBuilder<Contact>(type)
+                connection.SaveChanges();
+
+                var mapping = new MappingBuilder<Contact>(connection, type)
                 .AddField(name, "Name")
                 .AddField(email, "Email")
                 .AddField(dob, "DateOfBirth")
@@ -73,8 +72,8 @@ namespace RobustTests
                 c.DateOfBirth = DateTime.Now;
 
                 var saveEntity = mapping.SaveNew(c);
-                entities.Entities.Add(saveEntity);
-                entities.SaveChanges();
+                connection.Entities.Add(saveEntity);
+                connection.SaveChanges();
 
                 var entity = type.Entities.OnlyCurrent().FirstOrDefault();
 
