@@ -14,6 +14,8 @@ namespace RobustTests
             EntityType type;
             Field name, email, dob;
 
+            Installation.CreateDataModel();
+
             using (var connection = new DataConnection())
             {
                 type = new EntityType()
@@ -84,8 +86,8 @@ namespace RobustTests
                 Console.WriteLine("After:  {0} / {1} / {2}", c2.Name, c2.Email, c2.DateOfBirth);
             }
 
-            FlattenedViews.DropViews();
-            FlattenedViews.CreateViews();
+
+            Installation.DeleteRobustModel();
             Console.ReadKey();
         }
     }

@@ -1,9 +1,3 @@
--- creating the schemas seems to have to run as separate commands
-create schema [model] GO
-create schema [data] GO
-create schema [reports] GO
-
-
 SET QUOTED_IDENTIFIER ON
 SET ARITHABORT ON
 SET NUMERIC_ROUNDABORT OFF

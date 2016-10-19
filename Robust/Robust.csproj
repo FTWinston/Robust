@@ -100,6 +100,7 @@
     <Compile Include="FieldValue_Text.cs">
       <DependentUpon>RobustDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Installation.cs" />
     <Compile Include="MappingBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobustDataModel.Context.cs">
@@ -119,7 +120,6 @@
     </Compile>
     <Compile Include="RobustEntities.cs" />
     <Compile Include="ValueService.cs" />
-    <Compile Include="FlattenedViews.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="RobustDataModel.edmx">
@@ -135,6 +135,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CreateModel.sql" />
+    <EmbeddedResource Include="DeleteModel.sql" />
     <Content Include="RobustDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>RobustDataModel.edmx</DependentUpon>
