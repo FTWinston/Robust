@@ -81,6 +81,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Fields">
           <Key>
@@ -103,6 +104,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
           <Property Name="ParentFieldTypeID" Type="int" />
+          <Property Name="ValueTable" Type="nvarchar" MaxLength="50" />
           <Property Name="DisplayFormat" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -485,6 +487,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Entities" Relationship="Self.FK_Entities_EntityTypes" FromRole="EntityTypes" ToRole="Entities" />
           <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_EntityTypes" FromRole="EntityTypes" ToRole="Fields" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Field">
           <Key>
@@ -510,6 +513,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SortOrder" Type="Int32" Nullable="false" />
           <Property Name="ParentFieldTypeID" Type="Int32" />
+          <Property Name="ValueTable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DisplayFormat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_FieldTypes" FromRole="FieldTypes" ToRole="Fields" />
           <NavigationProperty Name="ChildFieldTypes" Relationship="Self.FK_FieldTypes_FieldTypes" FromRole="FieldTypes" ToRole="FieldTypes1" />
@@ -860,6 +864,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <EntitySetMapping Name="EntityTypes">
             <EntityTypeMapping TypeName="RobustModel.EntityType">
               <MappingFragment StoreEntitySet="EntityTypes">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -882,6 +887,7 @@ warning 6002: The table/view 'Robust.data.CurrentFieldValues' does not have a pr
           <EntitySetMapping Name="FieldTypes">
             <EntityTypeMapping TypeName="RobustModel.FieldType">
               <MappingFragment StoreEntitySet="FieldTypes">
+                <ScalarProperty Name="ValueTable" ColumnName="ValueTable" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />

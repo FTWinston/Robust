@@ -25,6 +25,7 @@ namespace Robust
         public string Name { get; set; }
         public int SortOrder { get; set; }
         public Nullable<int> ParentFieldTypeID { get; set; }
+        public string ValueTable { get; set; }
         public string DisplayFormat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

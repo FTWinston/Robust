@@ -19,6 +19,7 @@ namespace RobustTests
                 type = new EntityType()
                 {
                     Name = "Contact",
+                    Active = true,
                 };
                 connection.EntityTypes.Add(type);
                 
@@ -82,6 +83,9 @@ namespace RobustTests
                 Console.WriteLine("Before: {0} / {1} / {2}", c.Name, c.Email, c.DateOfBirth);
                 Console.WriteLine("After:  {0} / {1} / {2}", c2.Name, c2.Email, c2.DateOfBirth);
             }
+
+            FlattenedViews.DropViews();
+            FlattenedViews.CreateViews();
             Console.ReadKey();
         }
     }

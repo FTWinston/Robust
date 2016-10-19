@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -116,6 +117,7 @@
       <DependentUpon>RobustDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="ValueService.cs" />
+    <Compile Include="FlattenedViews.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="RobustDataModel.edmx">

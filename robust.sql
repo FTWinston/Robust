@@ -1,6 +1,7 @@
 -- creating the schemas seems to have to run as separate commands
 create schema [model] GO
 create schema [data] GO
+create schema [reports] GO
 
 
 SET QUOTED_IDENTIFIER ON
@@ -17,7 +18,8 @@ GO
 CREATE TABLE [model].EntityTypes
 	(
 	ID int NOT NULL IDENTITY (1, 1),
-	Name nvarchar(50) NOT NULL
+	Name nvarchar(50) NOT NULL,
+	Active bit not null
 	) 
 GO
 ALTER TABLE [model].EntityTypes ADD CONSTRAINT
@@ -34,6 +36,16 @@ ALTER TABLE [model].EntityTypes ADD CONSTRAINT
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
 
 GO
+ALTER TABLE [model].EntityTypes ADD CONSTRAINT
+	IX_EntityTypes_Active UNIQUE NONCLUSTERED 
+	(
+	Active desc
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+
+GO
+ALTER TABLE [model].EntityTypes ADD CONSTRAINT
+	DF_EntityTypes_Active DEFAULT 1 FOR Active
+GO
 ALTER TABLE [model].EntityTypes SET (LOCK_ESCALATION = TABLE)
 GO
 
@@ -45,6 +57,7 @@ CREATE TABLE [model].FieldTypes
 	Name nvarchar(50) NOT NULL,
 	SortOrder int NOT NULL,
 	ParentFieldTypeID int NULL,
+	ValueTable nvarchar(50) NULL,
 	DisplayFormat nvarchar(50) NULL
 	) 
 GO
@@ -78,6 +91,9 @@ ALTER TABLE [model].FieldTypes ADD CONSTRAINT
 	) ON UPDATE NO ACTION
 	 ON DELETE NO ACTION
 	
+GO
+ALTER TABLE model.FieldTypes ADD CONSTRAINT
+	CK_FieldTypes_ParentOrTable CHECK (ParentFieldTypeID is not null or ValueTable is not null)
 GO
 ALTER TABLE [model].FieldTypes SET (LOCK_ESCALATION = TABLE)
 GO
@@ -556,10 +572,10 @@ GO
 
 
 
-insert into model.FieldTypes select 'Boolean', 1, null, null
-insert into model.FieldTypes select 'Date', 4, null, null
-insert into model.FieldTypes select 'Decimal', 3, null, null
-insert into model.FieldTypes select 'Foreign Key', 7, null, null
-insert into model.FieldTypes select 'Free Text', 6, null, null
-insert into model.FieldTypes select 'Integer', 2, null, null
-insert into model.FieldTypes select 'Text', 5, null, null
+insert into model.FieldTypes select 'Boolean', 1, null, 'FieldValues_Bit', null
+insert into model.FieldTypes select 'Date', 4, null, 'FieldValues_Date', null
+insert into model.FieldTypes select 'Decimal', 3, null, 'FieldValues_Decimal', null
+insert into model.FieldTypes select 'Foreign Key', 7, null, 'FieldValues_ForeignKey', null
+insert into model.FieldTypes select 'Free Text', 6, null, 'FieldValues_FreeText', null
+insert into model.FieldTypes select 'Integer', 2, null, 'FieldValues_Int', null
+insert into model.FieldTypes select 'Text', 5, null, 'FieldValues_Text', null
