@@ -15,11 +15,6 @@ namespace Robust
     
     internal partial class RobustEntities : DbContext
     {
-        public RobustEntities()
-            : base("name=RobustEntities")
-        {
-        }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -7,11 +8,10 @@ namespace Robust
 {
     public class FlattenedViews
     {
-        static string schema = "reports";
-
         public static void DropViews()
         {
             var query = "select name from sys.views where schema_id = (select schema_id from sys.schemas where name = @p0)";
+            string schema = ConfigurationManager.AppSettings["ViewSchema"];
             using (var entities = new RobustEntities())
             {
                 foreach (string viewName in RunQuery<string>(entities, query, schema))
@@ -33,9 +33,12 @@ namespace Robust
 
         private static void CreateView(RobustEntities entities, EntityType entityType, IEnumerable<Field> fields)
         {
+            string viewSchema = ConfigurationManager.AppSettings["ViewSchema"];
+            string dataSchema = ConfigurationManager.AppSettings["DataSchema"];
+
             var sb = new StringBuilder();
             sb.Append("create view ");
-            sb.Append(schema);
+            sb.Append(viewSchema);
             sb.Append(".[");
             sb.Append(entityType.PluralName());
             sb.AppendLine("] as");
@@ -43,16 +46,18 @@ namespace Robust
 
             foreach (var field in fields)
             {
-                WriteField(sb, field);
+                WriteField(sb, field, dataSchema);
             }
 
-            sb.Append("from data.CurrentEntities e where EntityTypeID = ");
+            sb.Append("from ");
+            sb.Append(dataSchema);
+            sb.Append(".CurrentEntities e where EntityTypeID = ");
             sb.Append(entityType.ID);
 
             RunCommand(entities, sb.ToString());
         }
 
-        private static void WriteField(StringBuilder sb, Field field)
+        private static void WriteField(StringBuilder sb, Field field, string dataSchema)
         {
             var fieldType = field.FieldType;
             while (fieldType.ParentFieldType != null)
@@ -69,9 +74,13 @@ namespace Robust
 
             for (var num = 1; num <= maxNum; num++)
             {
-                sb.Append(",(select top 1 Value from data.");
+                sb.Append(",(select top 1 Value from ");
+                sb.Append(dataSchema);
+                sb.Append(".");
                 sb.Append(fieldType.ValueTable);
-                sb.Append(" where FieldValueID = (select top 1 ID from data.CurrentFieldValues where EntityID = e.ID and FieldID = ");
+                sb.Append(" where FieldValueID = (select top 1 ID from ");
+                sb.Append(dataSchema);
+                sb.Append(".CurrentFieldValues where EntityID = e.ID and FieldID = ");
                 sb.Append(field.ID);
                 sb.Append(" and ValueNumber = ");
                 sb.Append(num);
