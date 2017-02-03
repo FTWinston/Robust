@@ -91,11 +91,11 @@ namespace Robust
         public static void DropDataViews()
         {
             var query = "select name from sys.views where schema_id = (select schema_id from sys.schemas where name = @p0)";
-            string schema = "[" + ConfigurationManager.AppSettings["ViewSchema"] + "]";
+            string schema = ConfigurationManager.AppSettings["ViewSchema"];
             using (var entities = new RobustEntities())
             {
                 foreach (string viewName in Installation.RunQuery<string>(entities, query, schema))
-                    Installation.RunCommand(entities, "drop view " + schema + ".[" + viewName + "]");
+                    Installation.RunCommand(entities, "drop view [" + schema + "].[" + viewName + "]");
             }
         }
 
