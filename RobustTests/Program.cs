@@ -87,7 +87,7 @@ namespace RobustTests
             }
 
 
-            Installation.DeleteRobustModel();
+            Installation.DeleteDataModel();
             Console.ReadKey();
         }
     }

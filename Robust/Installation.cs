@@ -48,7 +48,7 @@ namespace Robust
             }
         }
         
-        public static void DeleteRobustModel()
+        public static void DeleteDataModel()
         {
             using (var entities = new RobustEntities())
             {
