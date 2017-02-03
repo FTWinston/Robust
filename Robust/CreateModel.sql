@@ -549,6 +549,7 @@ GO
 
 
 CREATE VIEW [data].[CurrentFieldValues]
+with schemabinding
 AS
 SELECT ID, EntityID, FieldID, ValueNumber
 FROM (SELECT ID, EntityID, FieldID, ValueNumber, Deleted,
@@ -560,6 +561,7 @@ GO
 
 
 CREATE VIEW [data].[CurrentEntities]
+with schemabinding
 AS
 select ID, EntityTypeID, CreatedOn from data.Entities where DeletedOn is null
 GO

@@ -121,7 +121,7 @@ namespace Robust
             sb.Append(viewSchema);
             sb.Append("].[");
             sb.Append(entityType.PluralName());
-            sb.AppendLine("] as");
+            sb.AppendLine("] with schemabinding as");
             sb.AppendLine("select ID");
 
             foreach (var field in fields)
