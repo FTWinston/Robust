@@ -14,6 +14,15 @@ namespace RobustTests
             EntityType type;
             Field name, email, dob;
 
+            try
+            {
+                Installation.DeleteDataModel();
+            }
+            catch
+            {
+
+            }
+
             Installation.CreateDataModel();
 
             using (var connection = new DataConnection())
@@ -69,25 +78,30 @@ namespace RobustTests
                 .AddField(dob, "DateOfBirth")
                 .GetResult();
 
-                Contact c = new Contact();
-                c.Name = "Test contact";
-                c.Email = "test@email.com";
-                c.DateOfBirth = DateTime.Now;
+                for (int i = 0; i < 100; i++)
+                {
+                    Contact c = new Contact();
+                    c.Name = "Test contact #" + i;
+                    c.Email = "test" + i + "@email.com";
+                    c.DateOfBirth = DateTime.Now.AddDays(-i);
 
-                var saveEntity = mapping.SaveNew(c);
-                connection.Entities.Add(saveEntity);
+                    var saveEntity = mapping.SaveNew(c);
+                    connection.Entities.Add(saveEntity);
+
+                    if (i==0)
+                        Console.WriteLine("Before: {0} / {1} / {2}", c.Name, c.Email, c.DateOfBirth);
+                }
+
                 connection.SaveChanges();
 
                 var entity = type.Entities.OnlyCurrent().FirstOrDefault();
 
                 Contact c2 = mapping.Load(entity);
-
-                Console.WriteLine("Before: {0} / {1} / {2}", c.Name, c.Email, c.DateOfBirth);
                 Console.WriteLine("After:  {0} / {1} / {2}", c2.Name, c2.Email, c2.DateOfBirth);
             }
 
-
-            Installation.DeleteDataModel();
+            Installation.CreateDataViews();
+            //Installation.DeleteDataModel();
             Console.ReadKey();
         }
     }

@@ -559,7 +559,7 @@ GO
 
 
 
-CREATE VIEW [data].CurrentEntities
+CREATE VIEW [data].[CurrentEntities]
 AS
 select ID, EntityTypeID, CreatedOn from data.Entities where DeletedOn is null
 GO
